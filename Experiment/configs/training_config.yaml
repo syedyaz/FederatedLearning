@@ -1,0 +1,97 @@
+# Federated Learning Training Configuration
+
+training:
+  # Total communication rounds
+  total_rounds: 200  # For CIFAR-10/100
+  # total_rounds: 100  # For ImageNet
+  
+  # Client selection
+  client_selection:
+    fraction: 0.1  # 10% of clients per round
+    strategy: "random"  # Options: random, weighted
+  
+  # Local training parameters
+  local_training:
+    learning_rate: 0.01
+    lr_schedule: "cosine"  # Options: constant, cosine, step
+    momentum: 0.9
+    weight_decay: 1e-4
+    optimizer: "SGD"  # Options: SGD, Adam
+  
+  # Device dropout simulation
+  device_dropout_rate: 0.1  # 10% dropout probability
+  
+  # Evaluation
+  eval_frequency: 5  # Evaluate every N rounds
+  save_frequency: 20  # Save checkpoint every N rounds
+
+# Compression configuration
+compression:
+  quantization:
+    bit_widths: [2, 4, 8, 16]
+    scheme: "symmetric_per_tensor"
+    learnable_scales: true
+    
+    layer_wise:
+      enabled: true
+      sensitivity_method: "gradient_magnitude"  # Options: gradient_magnitude, hessian_trace
+    
+    adaptive:
+      enabled: true
+      alpha: 0.3
+      beta: 0.1
+      progress_metric: "loss_reduction"
+  
+  sparsification:
+    method: "top_k"  # Options: top_k, threshold
+    adaptive: true
+    early_rounds_sparsity: 0.2
+    late_rounds_sparsity: 0.1
+  
+  # Hardware-aware cost model weights
+  cost_weights:
+    lambda_comm: 0.1
+    lambda_comp: 0.05
+
+# Dataset-specific configurations
+datasets:
+  cifar10:
+    num_clients: 100
+    samples_per_client_iid: 500
+    samples_per_client_noniid: 500  # Variable in non-IID
+    noniid_alpha: 0.5  # Dirichlet distribution parameter
+    extreme_noniid_alpha: 0.1
+    
+  cifar100:
+    num_clients: 100
+    samples_per_client_iid: 500
+    samples_per_client_noniid: 500
+    noniid_alpha: 0.5
+    
+  imagenet:
+    num_clients: 50
+    samples_per_client_iid: 2000
+    samples_per_client_noniid: 2000
+    noniid_alpha: 0.5
+
+# Model configurations
+models:
+  resnet18:
+    num_classes: 10  # For CIFAR-10
+    pretrained: true
+    
+  resnet50:
+    num_classes: 10
+    pretrained: true
+    
+  mobilenet_v2:
+    num_classes: 10
+    pretrained: true
+
+# Logging and output
+logging:
+  log_dir: "logs"
+  results_dir: "results"
+  plots_dir: "plots"
+  verbose: true
+  save_checkpoints: true

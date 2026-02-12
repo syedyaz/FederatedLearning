@@ -1,0 +1,176 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{mcmahan2017communication}
+\citation{konevcny2016federated}
+\citation{li2020federated}
+\citation{karimireddy2020scaffold}
+\citation{alistarh2017qsgd}
+\citation{wangni2018gradient}
+\citation{micikevicius2018mixed}
+\providecommand \oddpage@label [2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:introduction}{{I}{1}{Introduction}{section.1}{}}
+\citation{mcmahan2017communication}
+\citation{li2020federated}
+\citation{li2020federated}
+\citation{karimireddy2020scaffold}
+\citation{wang2020tackling}
+\citation{alistarh2017qsgd}
+\citation{bernstein2018signsgd}
+\citation{reisizadeh2020fedpaq}
+\citation{wangni2018gradient}
+\citation{stich2018sparsified}
+\citation{micikevicius2018mixed}
+\citation{chen2016training}
+\citation{wang2020picking}
+\citation{wang2019haq}
+\citation{wang2020hawq}
+\citation{yazdani2024amqf}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Related Work}{2}{section.2}\protected@file@percent }
+\newlabel{sec:related_work}{{II}{2}{Related Work}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Federated Learning}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}Communication Compression in Federated Learning}{2}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}Local Training Acceleration}{2}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-D}}Hardware-Aware Optimization}{2}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-E}}Gaps and Our Contribution}{3}{subsection.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {III}Problem Formulation}{3}{section.3}\protected@file@percent }
+\newlabel{sec:problem_formulation}{{III}{3}{Problem Formulation}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Federated Learning Setup}{3}{subsection.3.1}\protected@file@percent }
+\newlabel{eq:global_objective}{{1}{3}{Federated Learning Setup}{equation.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Communication Cost Model}{3}{subsection.3.2}\protected@file@percent }
+\newlabel{eq:comm_cost}{{2}{3}{Communication Cost Model}{equation.2}{}}
+\newlabel{eq:total_comm_cost}{{3}{3}{Communication Cost Model}{equation.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Computation Cost Model}{3}{subsection.3.3}\protected@file@percent }
+\newlabel{eq:comp_cost}{{4}{3}{Computation Cost Model}{equation.4}{}}
+\newlabel{eq:total_comp_cost}{{5}{3}{Computation Cost Model}{equation.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Unified Optimization Objective}{3}{subsection.3.4}\protected@file@percent }
+\newlabel{eq:unified_objective}{{6}{3}{Unified Optimization Objective}{equation.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}FedEdge-Accel Framework}{3}{section.4}\protected@file@percent }
+\newlabel{sec:framework}{{IV}{3}{FedEdge-Accel Framework}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Overview}{3}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Adaptive Communication Compression}{3}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}1}Layer-wise Adaptive Quantization}{3}{subsubsection.4.2.1}\protected@file@percent }
+\newlabel{eq:quantization}{{7}{3}{Layer-wise Adaptive Quantization}{equation.7}{}}
+\newlabel{eq:bitwidth_assignment}{{8}{3}{Layer-wise Adaptive Quantization}{equation.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces FedEdge-Accel framework architecture showing communication compression, local training acceleration, and hardware-aware optimization components.}}{4}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:framework}{{1}{4}{FedEdge-Accel framework architecture showing communication compression, local training acceleration, and hardware-aware optimization components}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}2}Structured Gradient Sparsification}{4}{subsubsection.4.2.2}\protected@file@percent }
+\newlabel{eq:sparsification}{{9}{4}{Structured Gradient Sparsification}{equation.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}3}Dynamic Compression Adaptation}{4}{subsubsection.4.2.3}\protected@file@percent }
+\newlabel{eq:adaptive_compression}{{10}{4}{Dynamic Compression Adaptation}{equation.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Hardware-Aware Local Training Acceleration}{4}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-C}1}Device-Specific Mixed-Precision Training}{4}{subsubsection.4.3.1}\protected@file@percent }
+\newlabel{eq:precision_assignment}{{11}{4}{Device-Specific Mixed-Precision Training}{equation.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-C}2}Sparse Gradient Computation}{4}{subsubsection.4.3.2}\protected@file@percent }
+\newlabel{eq:sparse_gradient}{{12}{4}{Sparse Gradient Computation}{equation.12}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-C}3}Device-Specific Training Strategies}{4}{subsubsection.4.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Unified Hardware-Aware Cost Model}{4}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-D}1}Communication Cost Model}{4}{subsubsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-D}2}Computation Cost Model}{4}{subsubsection.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-D}3}Joint Optimization}{4}{subsubsection.4.4.3}\protected@file@percent }
+\newlabel{eq:total_cost}{{13}{4}{Joint Optimization}{equation.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-E}}FedEdge-Accel Algorithm}{4}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V}Theoretical Analysis}{4}{section.5}\protected@file@percent }
+\newlabel{sec:theoretical_analysis}{{V}{4}{Theoretical Analysis}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Convergence Guarantees}{4}{subsection.5.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces FedEdge-Accel Algorithm}}{5}{algocf.1}\protected@file@percent }
+\newlabel{alg:fededge_accel}{{1}{5}{FedEdge-Accel Algorithm}{algocf.1}{}}
+\newlabel{eq:convergence}{{14}{5}{Convergence Guarantees}{equation.14}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Convergence Rate Analysis}{5}{subsection.5.2}\protected@file@percent }
+\newlabel{eq:convergence_rate}{{15}{5}{Convergence Rate Analysis}{equation.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-C}}Heterogeneity Analysis}{5}{subsection.5.3}\protected@file@percent }
+\newlabel{eq:heterogeneity_convergence}{{16}{5}{Heterogeneity Analysis}{equation.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Experimental Setup}{5}{section.6}\protected@file@percent }
+\newlabel{sec:experimental_setup}{{VI}{5}{Experimental Setup}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Datasets and Federated Splits}{5}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-A}1}CIFAR-10}{5}{subsubsection.6.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-A}2}CIFAR-100}{5}{subsubsection.6.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-A}3}ImageNet (Subset)}{5}{subsubsection.6.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Neural Network Architectures}{5}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}Edge Device Profiles}{5}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-C}1}Device Type 1: High-End Smartphone}{5}{subsubsection.6.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-C}2}Device Type 2: Mid-Range Smartphone}{5}{subsubsection.6.3.2}\protected@file@percent }
+\citation{mcmahan2017communication}
+\citation{li2020federated}
+\citation{karimireddy2020scaffold}
+\citation{alistarh2017qsgd}
+\citation{reisizadeh2020fedpaq}
+\citation{konevcny2016federated}
+\citation{bernstein2018signsgd}
+\citation{reddi2020adaptive}
+\citation{wang2020tackling}
+\citation{beutel2020flower}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-C}3}Device Type 3: IoT Edge Device}{6}{subsubsection.6.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-C}4}Device Type 4: Edge Server/Gateway}{6}{subsubsection.6.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-C}5}Device Distribution}{6}{subsubsection.6.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-D}}Baselines for Comparison}{6}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-D}1}Standard Federated Learning}{6}{subsubsection.6.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-D}2}Communication Compression Methods}{6}{subsubsection.6.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-D}3}Combined Methods}{6}{subsubsection.6.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-D}4}Ablation Baselines}{6}{subsubsection.6.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-E}}Training Configuration}{6}{subsection.6.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-E}1}Federated Learning Parameters}{6}{subsubsection.6.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-E}2}Compression Parameters}{6}{subsubsection.6.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-E}3}Hardware-Aware Parameters}{6}{subsubsection.6.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-F}}Evaluation Metrics}{6}{subsection.6.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-F}1}Accuracy Metrics}{6}{subsubsection.6.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-F}2}Communication Metrics}{6}{subsubsection.6.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-F}3}Computation Metrics}{6}{subsubsection.6.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-F}4}Heterogeneity Metrics}{6}{subsubsection.6.6.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Communication Reduction and Accuracy Comparison}}{7}{table.caption.3}\protected@file@percent }
+\newlabel{tab:communication_results}{{I}{7}{Communication Reduction and Accuracy Comparison}{table.caption.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-G}}Implementation Details}{7}{subsection.6.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-G}1}Software Framework}{7}{subsubsection.6.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-G}2}Hardware Modeling}{7}{subsubsection.6.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VI-G}3}Experimental Scenarios}{7}{subsubsection.6.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Results and Discussion}{7}{section.7}\protected@file@percent }
+\newlabel{sec:results}{{VII}{7}{Results and Discussion}{section.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-A}}Main Results}{7}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-A}1}Communication Efficiency}{7}{subsubsection.7.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-A}2}Convergence Speed}{7}{subsubsection.7.1.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Local Training Time Reduction}}{7}{table.caption.4}\protected@file@percent }
+\newlabel{tab:training_efficiency}{{II}{7}{Local Training Time Reduction}{table.caption.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Ablation Study: Component Contributions}}{7}{table.caption.5}\protected@file@percent }
+\newlabel{tab:ablation}{{III}{7}{Ablation Study: Component Contributions}{table.caption.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Performance Under Heterogeneity}}{7}{table.caption.6}\protected@file@percent }
+\newlabel{tab:heterogeneity}{{IV}{7}{Performance Under Heterogeneity}{table.caption.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-A}3}Local Training Efficiency}{7}{subsubsection.7.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Ablation Studies}{7}{subsection.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-B}1}Impact of Individual Components}{7}{subsubsection.7.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-B}2}Impact of Adaptive Compression}{7}{subsubsection.7.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-C}}Heterogeneity Analysis}{7}{subsection.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-C}1}Performance Under Non-IID Data}{7}{subsubsection.7.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-C}2}Device-Specific Performance}{7}{subsubsection.7.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-D}}Scalability Analysis}{7}{subsection.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-E}}Discussion}{7}{subsection.7.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-E}1}Trade-offs Between Communication and Computation}{7}{subsubsection.7.5.1}\protected@file@percent }
+\bibstyle{IEEEtran}
+\bibdata{references}
+\bibcite{mcmahan2017communication}{1}
+\bibcite{konevcny2016federated}{2}
+\bibcite{li2020federated}{3}
+\bibcite{karimireddy2020scaffold}{4}
+\bibcite{alistarh2017qsgd}{5}
+\bibcite{wangni2018gradient}{6}
+\bibcite{micikevicius2018mixed}{7}
+\bibcite{wang2020tackling}{8}
+\bibcite{bernstein2018signsgd}{9}
+\bibcite{reisizadeh2020fedpaq}{10}
+\bibcite{stich2018sparsified}{11}
+\bibcite{chen2016training}{12}
+\bibcite{wang2020picking}{13}
+\bibcite{wang2019haq}{14}
+\bibcite{wang2020hawq}{15}
+\bibcite{yazdani2024amqf}{16}
+\bibcite{reddi2020adaptive}{17}
+\bibcite{beutel2020flower}{18}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {VII-E}2}Practical Deployment Considerations}{8}{subsubsection.7.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VIII}Conclusion and Future Work}{8}{section.8}\protected@file@percent }
+\newlabel{sec:conclusion}{{VIII}{8}{Conclusion and Future Work}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-A}}Limitations}{8}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-B}}Future Directions}{8}{subsection.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{8}{section*.8}\protected@file@percent }
+\gdef \@abspage@last{8}
