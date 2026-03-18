@@ -121,6 +121,45 @@ class ThresholdSparsifier:
         return sparse_gradients, mask
 
 
+class STCCompressor:
+    """Sparse Ternary Compression (STC) for federated learning."""
+    
+    def __init__(self, sparsity_ratio: float = 0.01):
+        """
+        Args:
+            sparsity_ratio: Fraction of elements to keep (0.01 = keep top 1%)
+        """
+        self.sparsity_ratio = sparsity_ratio
+    
+    def compress(self, tensor: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+        """
+        Apply STC to a tensor: top-K sparsification followed by ternarization.
+        Returns the compressed tensor and a mask representing non-zero elements.
+        """
+        if self.sparsity_ratio >= 1.0:
+            return tensor, torch.ones_like(tensor, dtype=torch.bool)
+            
+        flattened = tensor.flatten()
+        k = max(1, int(len(flattened) * self.sparsity_ratio))
+        
+        # 1. Top-K Sparsification
+        abs_tensor = flattened.abs()
+        top_k_vals, top_k_indices = torch.topk(abs_tensor, k)
+        
+        mask = torch.zeros_like(flattened, dtype=torch.bool)
+        mask[top_k_indices] = True
+        
+        # 2. Ternarization of the sparsified elements
+        # Find the mean of the absolute values of the top-K elements
+        mu = top_k_vals.mean()
+        
+        # Quantize the non-zero elements to {-mu, +mu}
+        signs = flattened.sign()
+        ternarized = mu * signs * mask.float()
+        
+        return ternarized.reshape(tensor.shape), mask.reshape(tensor.shape)
+
+
 class LayerWiseCompressor:
     """Layer-wise compression with adaptive bit-widths."""
     

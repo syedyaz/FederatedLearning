@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.13)  10 FEB 2026 08:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.13)  18 MAR 2026 11:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -533,49 +533,64 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+) (C:\Users\afsar\AppData\Local\Programs\MiKTeX\tex/latex/amscls\amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks28
+\thm@bodyfont=\toks29
+\thm@headfont=\toks30
+\thm@notefont=\toks31
+\thm@headpunct=\toks32
+\thm@preskip=\skip84
+\thm@postskip=\skip85
+\thm@headsep=\skip86
+\dth@everypar=\toks33
 )
+\c@theorem=\count335
+\c@lemma=\count336
+\c@assumption=\count337
+
 (C:\Users\afsar\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count335
+\l__color_backend_stack_int=\count338
 ) (researchpaper.aux)
 \openout1 = `researchpaper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
 
 -- Lines per column: 58 (exact).
 
 (C:\Users\afsar\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count336
+\scratchcounter=\count339
 \scratchdimen=\dimen279
 \scratchbox=\box69
-\nofMPsegments=\count337
-\nofMParguments=\count338
-\everyMPshowfont=\toks28
-\MPscratchCnt=\count339
+\nofMPsegments=\count340
+\nofMParguments=\count341
+\everyMPshowfont=\toks34
+\MPscratchCnt=\count342
 \MPscratchDim=\dimen280
-\MPnumerator=\count340
-\makeMPintoPDFobject=\count341
-\everyMPtoPDFconversion=\toks29
+\MPnumerator=\count343
+\makeMPintoPDFobject=\count344
+\everyMPtoPDFconversion=\toks35
 )
 (C:\Users\afsar\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -591,83 +606,79 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 22.
+Package hyperref Info: Link coloring ON on input line 27.
  (researchpaper.out) (researchpaper.out)
 \@outlinefile=\write3
 \openout3 = `researchpaper.out'.
 
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 38.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 38.
 
-
-(C:\Users\afsar\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 38.
-
-
-(C:\Users\afsar\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Underfull \hbox (badness 2486) in paragraph at lines 38--38
+Underfull \hbox (badness 2486) in paragraph at lines 43--43
 [][][]\OT1/ptm/m/n/8 Syed Samar Yaz-dani is with SZ-abist Uni-ver-sity, Pak-ist
 an (e-mail:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 38--38
+Underfull \hbox (badness 10000) in paragraph at lines 43--43
 [][][]\OT1/ptm/m/n/8 Khalid Rasheed Shaikh is with Den-ning (e-mail:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 38--38
-[][][]\OT1/ptm/m/n/8 Haidawati Mo-hamad Nasir is with the Malaysian In-sti-tute
- of
+Underfull \hbox (badness 2443) in paragraph at lines 43--43
+[][][]\OT1/ptm/m/n/8 Naeem Ramzan is with the Uni-ver-sity of West Scot-land (e
+-mail:
  []
 
+LaTeX Font Info:    Trying to load font information for U+msa on input line 45.
 
-Underfull \hbox (badness 4217) in paragraph at lines 38--38
-\OT1/ptm/m/n/8 In-for-ma-tion Tech-nol-ogy, Uni-ver-siti Kuala Lumpur, Malaysia
- (e-mail:
- []
-
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
-0.
-(C:\Users\afsar\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+(C:\Users\afsar\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-Underfull \hbox (badness 2538) in paragraph at lines 39--41
+LaTeX Font Info:    Trying to load font information for U+msb on input line 45.
+
+
+(C:\Users\afsar\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Underfull \hbox (badness 2538) in paragraph at lines 44--46
 []\OT1/ptm/b/it/9 Abstract\OT1/ptm/b/n/9 ---Federated Learn-ing (FL) en-ables c
 ol-lab-o-ra-tive
  []
 
 
-Underfull \hbox (badness 1762) in paragraph at lines 63--64
+Underfull \hbox (badness 1762) in paragraph at lines 68--69
 \OT1/ptm/m/n/10 frame-work lever-ages device-specific mixed-precision
  []
 
-[1{C:/Users/afsar/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/af
-sar/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
+
+Underfull \vbox (badness 1024) has occurred while \output is active []
+
+ [1{C:/Users/afsar/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/a
+fsar/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
 
 
 ]
-Underfull \hbox (badness 1939) in paragraph at lines 83--84
+Underfull \hbox (badness 3312) in paragraph at lines 75--77
+\OT1/ptm/m/n/10 in-clud-ing FEM-NIST, UCI Hu-man Ac-tiv-ity Recog-ni-tion
+ []
+
+
+Underfull \hbox (badness 1939) in paragraph at lines 88--89
 \OT1/ptm/m/n/10 pro-pose device-specific mixed-precision train-ing and
  []
 
 [2]
-Underfull \hbox (badness 2035) in paragraph at lines 134--135
+Underfull \hbox (badness 2035) in paragraph at lines 139--140
 []\OT1/ptm/b/n/10 Devices per-form \OT1/ptm/m/n/10 lo-cal train-ing: $\OT1/cmr/
 bx/n/10 w[] \OT1/cmr/m/n/10 = \OT1/cmr/bx/n/10 w[] \OMS/cmsy/m/n/10 ^^@
  []
 
 
-Underfull \hbox (badness 1668) in paragraph at lines 175--176
+Underfull \hbox (badness 1668) in paragraph at lines 180--181
 []\OT1/ptm/m/n/10 FedEdge-Accel op-ti-mizes the fol-low-ing multi-objective
  []
 
 
-LaTeX Warning: File `framework_diagram.png' not found on input line 193.
+LaTeX Warning: File `framework_diagram.png' not found on input line 198.
 
 
 ! Package pdftex.def Error: File `framework_diagram.png' not found: using draft
@@ -677,237 +688,114 @@ See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.193 ...phics[width=3.5in]{framework_diagram.png}
+l.198 ...phics[width=3.5in]{framework_diagram.png}
                                                   
-? 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
-93.
+98.
 (C:\Users\afsar\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Overfull \hbox (0.94499pt too wide) in paragraph at lines 193--194
+Overfull \hbox (0.94499pt too wide) in paragraph at lines 198--199
  [][] 
  []
 
 
-Underfull \hbox (badness 2080) in paragraph at lines 194--194
+Underfull \hbox (badness 2080) in paragraph at lines 199--199
 \OT1/ptm/m/n/10 mu-ni-ca-tion com-pres-sion, lo-cal train-ing ac-cel-er-a-tion,
  and
  []
 
 [3]
-Underfull \hbox (badness 1735) in paragraph at lines 244--245
+Underfull \hbox (badness 1735) in paragraph at lines 249--250
  \OT1/ptm/m/it/10 1) Device-Specific Mixed-Precision Train-ing: [][][] \OT1/ptm
 /m/n/10 FedEdge-
  []
 
 
-! LaTeX Error: Environment assumption undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.345 \begin{assumption}
-                        
-? 
-
-! LaTeX Error: \begin{document} ended by \end{assumption}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.347 \end{assumption}
-                      
-? 
-
-! LaTeX Error: Environment assumption undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.349 \begin{assumption}
-                        
-? 
-
-! LaTeX Error: \begin{document} ended by \end{assumption}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.351 \end{assumption}
-                      
-? 
-
-! LaTeX Error: Environment assumption undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.353 \begin{assumption}
-                        
-? 
-
-! LaTeX Error: \begin{document} ended by \end{assumption}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.355 \end{assumption}
-                      
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 354--356
-[]\OT1/ptm/m/n/10 The spar-si-fi-ca-tion er-ror is bounded: $\OMS/cmsy/m/n/10 k
-r\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (\OT1/cmr/bx/n/10 w\OT1/cmr/m/n/10 ) \OMS/
-cmsy/m/n/10 ^^@
+Underfull \hbox (badness 7064) in paragraph at lines 359--360
+[][]\OT1/ptm/b/n/10 Assumption 3. []\OT1/ptm/m/it/10 The spar-si-fi-ca-tion er-
+ror is bounded:
  []
 
-
-! LaTeX Error: Environment theorem undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.357 \begin{theorem}
-                     
-? 
-
-! LaTeX Error: \begin{document} ended by \end{theorem}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.364 \end{theorem}
-                   
-? 
-
-! LaTeX Error: Environment proof undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.366 \begin{proof}
-                   
-? 
 [4]
+Underfull \hbox (badness 1694) in paragraph at lines 412--414
+ \OT1/ptm/m/it/10 1) FEM-NIST (LEAF Bench-mark): [][][] \OT1/ptm/m/n/10 Fed-er-
+ated Ex-tended
+ []
 
-! LaTeX Error: \begin{document} ended by \end{proof}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.368 \end{proof}
-                 
-? 
-
-! LaTeX Error: Environment theorem undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.374 \begin{theorem}
-                     
-? 
-
-! LaTeX Error: \begin{document} ended by \end{theorem}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.380 \end{theorem}
-                   
-? 
-
-! LaTeX Error: Environment theorem undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.388 \begin{theorem}
-                     
-? 
-
-! LaTeX Error: \begin{document} ended by \end{theorem}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.394 \end{theorem}
-                   
-? 
-
-Underfull \hbox (badness 1742) in paragraph at lines 455--456
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
+28.
+(C:\Users\afsar\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+Underfull \hbox (badness 1742) in paragraph at lines 458--459
 []\OT1/ptm/m/n/10 Capabilities: Full-precision train-ing, sup-ports mixed-
  []
 
 [5]
-Underfull \hbox (badness 6316) in paragraph at lines 596--597
+
+LaTeX Warning: Citation `sattler2019robust' on page 6 undefined on input line 5
+34.
+
+
+Underfull \hbox (badness 6316) in paragraph at lines 600--601
 []\OT1/ptm/b/n/10 Computation Re-duc-tion\OT1/ptm/m/n/10 : Per-cent-age re-duc-
 tion in
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 631--632
-[]\OT1/ptm/m/n/10 Memory: Model size + ac-ti-va-tion mem-ory
+Underfull \hbox (badness 4120) in paragraph at lines 636--637
+[]\OT1/ptm/m/n/10 Memory: Peak RAM foot-print ac-count-ing for
  []
 
 
-Overfull \hbox (132.24597pt too wide) in alignment at lines 670--670
+Overfull \hbox (118.18219pt too wide) in alignment at lines 675--675
 [][][][][] 
  []
 
 
-LaTeX Warning: Reference `fig:convergence' on page 7 undefined on input line 67
-5.
+LaTeX Warning: Reference `fig:convergence' on page 7 undefined on input line 68
+0.
 
 
-Underfull \hbox (badness 1817) in paragraph at lines 675--676
+Underfull \hbox (badness 1817) in paragraph at lines 680--681
  \OT1/ptm/m/it/10 2) Con-ver-gence Speed: [][][] \OT1/ptm/m/n/10 Fig-ure [] sho
 ws con-ver-gence
  []
 
 
-Overfull \hbox (60.1898pt too wide) in alignment at lines 693--693
+Overfull \hbox (60.1898pt too wide) in alignment at lines 698--698
 [][][][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 715--715
+Underfull \hbox (badness 10000) in alignment at lines 720--720
 [][][] 
  []
 
 
 LaTeX Warning: Reference `fig:adaptive_compression' on page 7 undefined on inpu
-t line 720.
+t line 725.
 
 
-Underfull \hbox (badness 10000) in alignment at lines 740--740
+Underfull \hbox (badness 10000) in alignment at lines 746--746
 [][][] 
  []
 
 
 LaTeX Warning: Reference `fig:device_performance' on page 7 undefined on input 
-line 745.
+line 751.
 
 
-LaTeX Warning: Reference `fig:scalability' on page 7 undefined on input line 74
-9.
+LaTeX Warning: Reference `fig:scalability' on page 7 undefined on input line 75
+5.
 
-[7] (researchpaper.bbl) [8] (researchpaper.aux)
+[7] (researchpaper.bbl [8]) [9
+
+] (researchpaper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-29>
@@ -916,20 +804,17 @@ L3 programming layer <2025-12-29>
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `researchpaper.out' has not changed.
-(rerunfilecheck)             Checksum: 4FB037A13D1823001E76BEB7DA026B4F;14833.
+(rerunfilecheck)             Checksum: 7967CDCC9DD1BFF8304E231FDFD8F4C6;14969.
  ) 
 Here is how much of TeX's memory you used:
- 14310 strings out of 467871
- 231234 string characters out of 5418376
- 671510 words of memory out of 5000000
- 42853 multiletter control sequences out of 15000+600000
- 672149 words of font info for 134 fonts, out of 8000000 for 9000
+ 14408 strings out of 467871
+ 232738 string characters out of 5418376
+ 672812 words of memory out of 5000000
+ 42937 multiletter control sequences out of 15000+600000
+ 670237 words of font info for 126 fonts, out of 8000000 for 9000
  1146 hyphenation exceptions out of 8191
- 75i,23n,79p,1893b,549s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,23n,79p,1966b,589s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/afsar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx10.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx7.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fonts/type1/pu
@@ -937,21 +822,22 @@ blic/amsfonts/cm/cmex10.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fonts
 /type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/afsar/AppData/Local/Programs/MiK
 TeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/afsar/AppData/Local/Prog
 rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/afsar/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/afsar/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/a
-fsar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C
-:/Users/afsar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy
-7.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmsy8.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/symbols/msbm10.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fonts
-/type1/urw/courier/ucrr8a.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fon
-ts/type1/urw/times/utmb8a.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fon
-ts/type1/urw/times/utmbi8a.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fo
-nts/type1/urw/times/utmr8a.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fo
-nts/type1/urw/times/utmri8a.pfb>
-Output written on researchpaper.pdf (8 pages, 298234 bytes).
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/afsar/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/
+afsar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:
+/Users/afsar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmsy7.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmsy9.pfb><C:/Users/afsar/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/amsfonts/symbols/msbm10.pfb><C:/Users/afsar/AppData/Local/Programs/MiKT
+eX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/afsar/AppData/Local/Programs/Mi
+KTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/afsar/AppData/Local/Programs/Mi
+KTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/afsar/AppData/Local/Programs/M
+iKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/afsar/AppData/Local/Programs/M
+iKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on researchpaper.pdf (9 pages, 310676 bytes).
 PDF statistics:
- 580 PDF objects out of 1000 (max. 8388607)
- 145 named destinations out of 1000 (max. 500000)
+ 596 PDF objects out of 1000 (max. 8388607)
+ 152 named destinations out of 1000 (max. 500000)
  641 words of extra memory for PDF output out of 10000 (max. 10000000)
 

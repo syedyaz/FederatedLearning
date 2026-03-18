@@ -10,6 +10,8 @@ if [ ! -d "data/cifar10" ]; then
     python scripts/prepare_datasets.py --dataset cifar10
 fi
 
+# Reproducibility: fixed seed for publication
+export FL_SEED=42
 # Run experiment
 echo "Running CIFAR-10 experiment..."
 python experiments/cifar10_experiment.py

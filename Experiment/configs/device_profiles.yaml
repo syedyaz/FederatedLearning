@@ -19,8 +19,8 @@ devices:
       - mixed_precision
       - sparse_updates
     local_epochs: 5
-    batch_size: 64
-    learning_rate: 0.01
+    batch_size: 32  # Reduced from 64 for 4GB GPU compatibility
+    learning_rate: 0.1  # Increased significantly for faster learning
     
   mid_range_smartphone:
     name: "Mid-Range Smartphone"
@@ -40,7 +40,7 @@ devices:
       - sparse_updates
     local_epochs: 3
     batch_size: 32
-    learning_rate: 0.01
+    learning_rate: 0.1
     
   iot_device:
     name: "IoT Edge Device"
@@ -58,9 +58,9 @@ devices:
     capabilities:
       - aggressive_quantization
       - sparse_updates
-    local_epochs: 1
+    local_epochs: 2  # Increased from 1 for better learning on weak devices
     batch_size: 16
-    learning_rate: 0.01
+    learning_rate: 0.1
     
   edge_server:
     name: "Edge Server/Gateway"
@@ -81,8 +81,8 @@ devices:
       - sparse_updates
       - assist_weaker_devices
     local_epochs: 5
-    batch_size: 64
-    learning_rate: 0.01
+    batch_size: 32  # Reduced from 64 for 4GB GPU compatibility
+    learning_rate: 0.1
 
 # Device distribution for heterogeneous scenarios
 device_distribution:
@@ -91,7 +91,7 @@ device_distribution:
   iot_device: 0.25
   edge_server: 0.05
 
-# Compression parameters per device type
+# Compression parameters per device type (relaxed for better learning)
 compression_by_device:
   high_end_smartphone:
     weight_bits: 16
@@ -100,13 +100,12 @@ compression_by_device:
     
   mid_range_smartphone:
     weight_bits: 8
-    activation_bits: 4
-    sparsity_ratio: 0.1  # Top 10%
-    
+    activation_bits: 8
+    sparsity_ratio: 0.8  # Keep top 80% (after warmup) for learning
   iot_device:
-    weight_bits: 4
-    activation_bits: 2
-    sparsity_ratio: 0.05  # Top 5%
+    weight_bits: 8
+    activation_bits: 8
+    sparsity_ratio: 0.8  # Keep top 80% (after warmup) for learning
     
   edge_server:
     weight_bits: 16

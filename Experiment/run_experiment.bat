@@ -10,6 +10,8 @@ if not exist "data\cifar10" (
     python scripts\prepare_datasets.py --dataset cifar10
 )
 
+REM Reproducibility: fixed seed for publication
+set FL_SEED=42
 REM Run experiment
 echo Running CIFAR-10 experiment...
 python experiments\cifar10_experiment.py

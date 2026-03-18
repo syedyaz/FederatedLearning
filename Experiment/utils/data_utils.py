@@ -4,10 +4,14 @@ Data utilities for federated learning experiments.
 
 import numpy as np
 import torch
-from torch.utils.data import Dataset, Subset, DataLoader
+from torch.utils.data import Dataset, Subset, DataLoader, TensorDataset
 from torchvision import datasets, transforms
 from typing import List, Tuple, Optional
 import os
+import urllib.request
+import zipfile
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
 
 def get_cifar10_transforms(train=True):
@@ -63,6 +67,73 @@ def load_cifar100(data_dir='./data/cifar100', train=True):
         download=True,
         transform=transform
     )
+    return dataset
+
+
+def load_femnist(data_dir='./data/femnist', train=True):
+    """
+    Load FEMNIST dataset (Federated Extended MNIST).
+    Uses torchvision EMNIST ByClass split which contains 62 classes (digits + letters).
+    """
+    transform = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((0.1307,), (0.3081,))
+    ])
+    
+    dataset = datasets.EMNIST(
+        root=data_dir,
+        split='byclass',
+        train=train,
+        download=True,
+        transform=transform
+    )
+    return dataset
+
+
+def load_har(data_dir='./data/har', train=True):
+    """
+    Load UCI Human Activity Recognition dataset.
+    Downloads and formats the standard UCI HAR dataset for PyTorch.
+    """
+    os.makedirs(data_dir, exist_ok=True)
+    zip_path = os.path.join(data_dir, 'UCI_HAR_Dataset.zip')
+    extracted_dir = os.path.join(data_dir, 'UCI HAR Dataset')
+    
+    if not os.path.exists(extracted_dir):
+        if not os.path.exists(zip_path):
+            print("Downloading UCI HAR Dataset...")
+            url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip"
+            urllib.request.urlretrieve(url, zip_path)
+        
+        print("Extracting UCI HAR Dataset...")
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            zip_ref.extractall(data_dir)
+            
+    prefix = 'train' if train else 'test'
+    
+    # Load data
+    x_path = os.path.join(extracted_dir, prefix, f'X_{prefix}.txt')
+    y_path = os.path.join(extracted_dir, prefix, f'y_{prefix}.txt')
+    
+    # Read using pandas (space separated)
+    X = pd.read_csv(x_path, delim_whitespace=True, header=None).values
+    # y is 1-indexed in UCI HAR (1-6), convert to 0-indexed (0-5)
+    y = pd.read_csv(y_path, delim_whitespace=True, header=None).values.flatten() - 1
+    
+    # Standardize features
+    scaler = StandardScaler()
+    X = scaler.fit_transform(X)
+    
+    # Convert to PyTorch tensors
+    X_tensor = torch.FloatTensor(X)
+    y_tensor = torch.LongTensor(y)
+    
+    # Create dataset
+    dataset = TensorDataset(X_tensor, y_tensor)
+    
+    # Attach labels attribute for compatibility with split functions
+    dataset.targets = y.tolist()
+    
     return dataset
 
 
@@ -181,9 +252,13 @@ def create_device_profiles(num_clients: int, device_config: dict) -> List[dict]:
     )
     
     device_profiles = []
+    compression_by_device = device_config.get('compression_by_device', {})
     for device_type in device_types_assigned:
         profile = device_config['devices'][device_type].copy()
         profile['device_type'] = device_type
+        # Merge compression params for this device type
+        if device_type in compression_by_device:
+            profile['compression'] = compression_by_device[device_type].copy()
         device_profiles.append(profile)
     
     return device_profiles

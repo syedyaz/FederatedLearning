@@ -2,6 +2,7 @@
 FedAvg Baseline Implementation.
 """
 
+import math
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -36,13 +37,33 @@ class FedAvgClient:
             'samples_trained': 0
         }
     
-    def train_local(self, num_epochs: Optional[int] = None) -> Dict:
+    def train_local(
+        self,
+        num_epochs: Optional[int] = None,
+        round_num: Optional[int] = None,
+        total_rounds: Optional[int] = None
+    ) -> Dict:
         """Perform local training (standard FedAvg)."""
         if num_epochs is None:
             num_epochs = int(self.device_profile.get('local_epochs', 3))
         
         batch_size = int(self.device_profile.get('batch_size', 32))
-        learning_rate = float(self.device_profile.get('learning_rate', 0.01))
+        base_lr = float(
+            self.config.get('training', {}).get('local_training', {}).get('learning_rate')
+            or self.device_profile.get('learning_rate', 0.004)
+        )
+        # LR schedule: warmup (constant) for first N rounds, then cosine decay
+        warmup = int(self.config.get('training', {}).get('local_training', {}).get('lr_warmup_rounds', 50))
+        if round_num is not None and total_rounds is not None and total_rounds > 0:
+            if round_num < warmup:
+                learning_rate = base_lr
+            else:
+                lr_min = base_lr * 0.01
+                progress = (round_num - warmup) / max(1, total_rounds - warmup)
+                progress = min(1.0, progress)
+                learning_rate = lr_min + 0.5 * (base_lr - lr_min) * (1 + math.cos(math.pi * progress))
+        else:
+            learning_rate = base_lr
         # Ensure batch_size >= 2 so BatchNorm gets >1 sample per channel (avoids RuntimeError)
         batch_size = max(2, min(batch_size, len(self.dataset)))
         
@@ -76,6 +97,7 @@ class FedAvgClient:
                 outputs = self.model(batch_x)
                 loss = criterion(outputs, batch_y)
                 loss.backward()
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
                 optimizer.step()
                 
                 total_loss += loss.item()

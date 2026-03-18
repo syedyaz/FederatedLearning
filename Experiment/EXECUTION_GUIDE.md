@@ -163,7 +163,23 @@ You can modify experiment parameters in:
 - **`configs/device_profiles.yaml`**: Device hardware profiles
   - Batch sizes
   - Local epochs
-  - Compression settings
+  - Compression settings (weight_bits, sparsity_ratio)
+
+- **Sanity check (no compression)**: Set `compression.disable_for_sanity_check: true` in `configs/training_config.yaml` to run FedEdge-Accel with compression disabled for comparison with FedAvg
+- **Compression warmup**: For the first `compression.warmup_rounds` (default 50), clients send full-precision updates so the global model can learn; after that, device-specific compression is applied.
+
+### Reproducing paper results (publication)
+
+For reproducible results suitable for top-tier journals (IEEE Transactions, ACM, IEEE Access):
+
+1. **Random seed**: Set `FL_SEED=42` (default). Override with `set FL_SEED=123` (Windows) or `FL_SEED=123 python experiments/cifar10_experiment.py` (Linux/Mac).
+2. **Model**: The experiment uses ResNet-18 for CIFAR-10 (32×32), i.e. `get_resnet18_cifar()` (no ImageNet pretraining).
+3. **Rounds**: `configs/training_config.yaml` uses `total_rounds: 300` for publication-quality convergence.
+4. **Single run**: From the `Experiment` directory run:
+   ```bash
+   python experiments/cifar10_experiment.py
+   ```
+   Results are written to `results/cifar10_<timestamp>/` with JSON metrics and `experiment.log`.
 
 ## Monitoring Progress
 

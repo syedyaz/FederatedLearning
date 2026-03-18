@@ -1,19 +1,20 @@
 # Federated Learning Training Configuration
 
 training:
-  # Total communication rounds
-  total_rounds: 200  # For CIFAR-10/100
+  # Total communication rounds (300 for publication-quality convergence)
+  total_rounds: 300
   # total_rounds: 100  # For ImageNet
   
   # Client selection
   client_selection:
-    fraction: 0.1  # 10% of clients per round
+    fraction: 0.1  # 10% (10 clients/round) - 20% causes OOM on 4GB GPUs
     strategy: "random"  # Options: random, weighted
   
   # Local training parameters
   local_training:
-    learning_rate: 0.01
+    learning_rate: 0.1  # Increased significantly for faster learning (was 0.01, updates still too small)
     lr_schedule: "cosine"  # Options: constant, cosine, step
+    lr_warmup_rounds: 50  # Keep LR constant for first 50 rounds, then cosine decay
     momentum: 0.9
     weight_decay: 1e-4
     optimizer: "SGD"  # Options: SGD, Adam
@@ -27,6 +28,11 @@ training:
 
 # Compression configuration
 compression:
+  # Set to true to disable compression for sanity check (compare FedEdge-Accel to FedAvg)
+  disable_for_sanity_check: true  # TEMPORARY: Disable compression to verify learning works
+  # First N rounds: send full-precision updates so the model can learn (then use device compression)
+  warmup_rounds: 50
+  
   quantization:
     bit_widths: [2, 4, 8, 16]
     scheme: "symmetric_per_tensor"

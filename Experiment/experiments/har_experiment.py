@@ -18,8 +18,8 @@ from datetime import datetime
 import logging
 import time
 
-from utils.data_utils import load_cifar10, create_iid_split, create_noniid_split, create_device_profiles
-from utils.model_utils import get_resnet18, get_resnet18_cifar, get_mobilenet_v2
+from utils.data_utils import load_har, create_iid_split, create_noniid_split, get_data_statistics, create_device_profiles
+from utils.model_utils import get_har_mlp, get_model_size_mb, estimate_flops
 from federated.client import FedEdgeAccelClient
 from federated.server import FedEdgeAccelServer
 from baselines.fedavg import FedAvgClient, FedAvgServer
@@ -77,7 +77,7 @@ def run_federated_learning(
     model.to(device)
     
     method_name = "FedAvg" if baseline else "FedEdge-Accel"
-    logger.info(f"Initializing {method_name} server on device: {device}")
+    logger.info(f"Initializing {method_name} server for UCI HAR Experiment on device: {device}")
     
     # Create server
     if baseline:
@@ -262,13 +262,13 @@ def main():
     
     # Create results directory first for logging
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    results_dir = f"results/cifar10_{timestamp}"
+    results_dir = f"results/har_{timestamp}"
     os.makedirs(results_dir, exist_ok=True)
     
     # Setup logging
     logger = setup_logging(results_dir)
     logger.info("="*70)
-    logger.info("CIFAR-10 Federated Learning Experiment (Publication-Ready)")
+    logger.info("UCI HAR Federated Learning Experiment (Publication-Ready)")
     logger.info("="*70)
     logger.info(f"Experiment started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     logger.info(f"Results directory: {results_dir}")
@@ -279,12 +279,13 @@ def main():
     config = load_config('configs/training_config.yaml')
     device_config = load_config('configs/device_profiles.yaml')
     logger.info("Configuration loaded successfully")
+    print("\n--- Phase 2: Loading HAR Dataset ---")
+    data_dir = config.get('data', {}).get('data_dir', './data/har')
     
-    # Load CIFAR-10
-    logger.info("Loading CIFAR-10 dataset...")
+    print(f"Loading HAR from {data_dir}...")
     load_start = time.time()
-    train_dataset = load_cifar10(train=True)
-    test_dataset = load_cifar10(train=False)
+    train_dataset = load_har(data_dir=data_dir, train=True)
+    test_dataset = load_har(data_dir=data_dir, train=False)
     load_time = time.time() - load_start
     logger.info(f"Dataset loaded in {load_time:.2f}s")
     logger.info(f"  Training samples: {len(train_dataset)}")
@@ -319,8 +320,8 @@ def main():
     logger.info(f"Created {len(device_profiles)} device profiles")
     
     # CIFAR-10-appropriate ResNet (32x32) for publication-quality accuracy
-    logger.info("Initializing ResNet-18 (CIFAR) model...")
-    model = get_resnet18_cifar(num_classes=10)
+    logger.info("Initializing baseline model FedAvg (MLP_HAR)...")
+    baseline_model = get_har_mlp(num_classes=6)
     logger.info("Model initialized")
     
     # Run experiments
@@ -344,7 +345,7 @@ def main():
         logger.info("-"*70)
         logger.info("Method: FedEdge-Accel")
         logger.info("-"*70)
-        model_fededge = get_resnet18_cifar(num_classes=10)
+        model_fededge = get_har_mlp(num_classes=6)
         results_fededge, server_fededge = run_federated_learning(
             model_fededge,
             train_datasets,

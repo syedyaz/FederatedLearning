@@ -62,11 +62,36 @@ class FedEdgeAccelServer:
             for update, weight in zip(client_updates, client_weights):
                 aggregated_update[name] += weight * update[name]
         
-        # Update global model
+        # Debug: Check update magnitude and model change
+        total_update_norm = sum(u.norm().item() for u in aggregated_update.values())
+        max_update_abs = max(u.abs().max().item() for u in aggregated_update.values())
+        
+        # Store model state before update
+        import logging
+        logger = logging.getLogger(__name__)
+        if self.round_num < 3:  # Log first 3 rounds
+            model_norm_before = sum(p.norm().item() for p in self.model.parameters())
+            logger.info(f"  [Round {self.round_num}] Before update: model_norm={model_norm_before:.6f}, "
+                       f"update_norm={total_update_norm:.6f}, max_update_abs={max_update_abs:.6f}")
+        
+        # Update global model (only trainable parameters, not BatchNorm running stats)
+        self.model.train()  # Set to train mode before updating
         with torch.no_grad():
             for name, param in self.model.named_parameters():
                 if name in aggregated_update:
-                    param.data += aggregated_update[name]
+                    # Skip BatchNorm running_mean/running_var - these are buffers, not parameters
+                    # They should be recomputed during evaluation
+                    if 'running_mean' in name or 'running_var' in name or 'num_batches_tracked' in name:
+                        continue
+                    # Ensure update is on same device as param
+                    update_tensor = aggregated_update[name].to(param.device)
+                    param.data += update_tensor
+        
+        # Check model changed
+        if self.round_num < 3:
+            model_norm_after = sum(p.norm().item() for p in self.model.parameters())
+            logger.info(f"  [Round {self.round_num}] After update: model_norm={model_norm_after:.6f}, "
+                       f"change={abs(model_norm_after - model_norm_before):.6f}")
         
         self.round_num += 1
         self.stats['total_rounds'] = self.round_num
@@ -94,6 +119,13 @@ class FedEdgeAccelServer:
         
         self.model.to(device)
         self.model.eval()
+        
+        # Reset BatchNorm running stats and recompute from test data
+        # This ensures consistent evaluation regardless of client-specific BatchNorm stats
+        for m in self.model.modules():
+            if isinstance(m, torch.nn.BatchNorm2d):
+                m.reset_running_stats()
+                m.momentum = None  # Use current batch statistics
         
         correct = 0
         total = 0

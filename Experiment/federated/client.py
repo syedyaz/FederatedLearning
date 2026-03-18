@@ -2,6 +2,7 @@
 Federated Learning Client Implementation with Compression and Hardware-Aware Training.
 """
 
+import math
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -10,7 +11,7 @@ from typing import Dict, List, Optional, Tuple
 import copy
 import numpy as np
 
-from federated.compression import LayerWiseCompressor, AdaptiveQuantizer, TopKSparsifier
+from federated.compression import LayerWiseCompressor, AdaptiveQuantizer, TopKSparsifier, STCCompressor
 from federated.hardware_model import UnifiedCostModel, estimate_flops_per_sample
 from utils.model_utils import estimate_flops
 
@@ -70,17 +71,25 @@ class FedEdgeAccelClient:
     
     def setup_compression(self):
         """Setup compression parameters based on device profile."""
-        compression_config = self.device_profile.get('compression', {})
-        
-        # Get bit-widths for this device type (ensure int/float types)
-        self.weight_bits = int(compression_config.get('weight_bits', 8))
-        self.activation_bits = int(compression_config.get('activation_bits', 4))
-        self.sparsity_ratio = float(compression_config.get('sparsity_ratio', 0.1))
+        # Sanity check: disable compression to verify learning works
+        if self.config.get('compression', {}).get('disable_for_sanity_check', False):
+            self.weight_bits = 32
+            self.activation_bits = 16
+            self.sparsity_ratio = 1.0
+        else:
+            compression_config = self.device_profile.get('compression', {})
+            self.compression_method = compression_config.get('method', 'layer_wise')
+            self.weight_bits = int(compression_config.get('weight_bits', 8))
+            self.activation_bits = int(compression_config.get('activation_bits', 8))
+            self.sparsity_ratio = float(compression_config.get('sparsity_ratio', 0.5))
         
         # Create compressor
-        layer_bit_widths = self._get_layer_bit_widths()
-        self.compressor = LayerWiseCompressor(layer_bit_widths, self.sparsity_ratio)
-        self.sparsifier = TopKSparsifier(k_ratio=self.sparsity_ratio)
+        if self.compression_method == 'stc':
+            self.compressor = STCCompressor(sparsity_ratio=self.sparsity_ratio)
+        else:
+            layer_bit_widths = self._get_layer_bit_widths()
+            self.compressor = LayerWiseCompressor(layer_bit_widths, self.sparsity_ratio)
+            self.sparsifier = TopKSparsifier(k_ratio=self.sparsity_ratio)
     
     def _get_layer_bit_widths(self) -> Dict[str, int]:
         """Get bit-width for each layer."""
@@ -89,9 +98,19 @@ class FedEdgeAccelClient:
             layer_bit_widths[name] = self.weight_bits
         return layer_bit_widths
     
-    def train_local(self, num_epochs: Optional[int] = None) -> Dict:
+    def train_local(
+        self,
+        num_epochs: Optional[int] = None,
+        round_num: Optional[int] = None,
+        total_rounds: Optional[int] = None
+    ) -> Dict:
         """
         Perform local training with hardware-aware optimization.
+        
+        Args:
+            num_epochs: Local epochs (uses device profile if None)
+            round_num: Current FL round (for cosine LR decay)
+            total_rounds: Total FL rounds (for cosine LR decay)
         
         Returns:
             Dictionary with model update and statistics
@@ -100,7 +119,22 @@ class FedEdgeAccelClient:
             num_epochs = int(self.device_profile.get('local_epochs', 3))
         
         batch_size = int(self.device_profile.get('batch_size', 32))
-        learning_rate = float(self.device_profile.get('learning_rate', 0.01))
+        base_lr = float(
+            self.config.get('training', {}).get('local_training', {}).get('learning_rate')
+            or self.device_profile.get('learning_rate', 0.004)
+        )
+        # LR schedule: warmup (constant) for first N rounds, then cosine decay
+        warmup = int(self.config.get('training', {}).get('local_training', {}).get('lr_warmup_rounds', 50))
+        if round_num is not None and total_rounds is not None and total_rounds > 0:
+            if round_num < warmup:
+                learning_rate = base_lr
+            else:
+                lr_min = base_lr * 0.01
+                progress = (round_num - warmup) / max(1, total_rounds - warmup)
+                progress = min(1.0, progress)
+                learning_rate = lr_min + 0.5 * (base_lr - lr_min) * (1 + math.cos(math.pi * progress))
+        else:
+            learning_rate = base_lr
         # Ensure batch_size >= 2 so BatchNorm gets >1 sample per channel (avoids RuntimeError)
         batch_size = max(2, min(batch_size, len(self.dataset)))
         
@@ -123,6 +157,12 @@ class FedEdgeAccelClient:
             momentum=momentum,
             weight_decay=weight_decay
         )
+        
+        # Debug: Log learning rate (first round only)
+        if round_num is not None and round_num < 1:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.debug(f"    Client {self.client_id} LR: {learning_rate:.6f}, epochs: {num_epochs}, batch_size: {batch_size}")
         criterion = nn.CrossEntropyLoss()
         
         # Store initial model state
@@ -147,12 +187,8 @@ class FedEdgeAccelClient:
                 loss = criterion(outputs, batch_y)
                 loss.backward()
                 
-                # Apply sparsification to gradients
-                if self.sparsity_ratio < 1.0:
-                    for name, param in self.model.named_parameters():
-                        if param.grad is not None:
-                            sparse_grad, _ = self.sparsifier.sparsify(param.grad)
-                            param.grad = sparse_grad
+                # Gradient clipping to prevent exploding gradients
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
                 
                 optimizer.step()
                 
@@ -174,10 +210,20 @@ class FedEdgeAccelClient:
                                    f"{progress:.0f}% | Batch {batch_idx+1}/{batches_per_epoch} | "
                                    f"Loss: {avg_loss:.4f}")
         
-        # Compute model update
+        # Compute model update (ensure same device)
         model_update = {}
+        update_norm = 0.0
         for name, param in self.model.named_parameters():
-            model_update[name] = param.data - initial_state[name]
+            initial_param = initial_state[name].to(param.device)
+            update = param.data - initial_param
+            model_update[name] = update
+            update_norm += update.norm().item()
+        
+        # Debug: Log update magnitude (first round only)
+        if round_num is not None and round_num < 1:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.debug(f"    Client {self.client_id} update norm: {update_norm:.6f}")
         
         # If no batches were run (e.g. too few samples after drop_last), treat as zero contribution
         effective_samples = len(self.dataset) if num_batches > 0 else 0
@@ -207,47 +253,61 @@ class FedEdgeAccelClient:
     def compress_update(self, model_update: Dict, round_num: int, total_rounds: int) -> Tuple[Dict, Dict]:
         """
         Compress model update for communication.
+        Uses warmup: no compression for the first N rounds so the model can learn.
         
         Returns:
-            compressed_update: Compressed model update
+            compressed_update: Compressed model update (or full update during warmup)
             compression_stats: Statistics about compression
         """
+        warmup_rounds = int(self.config.get('compression', {}).get('warmup_rounds', 50))
+        if round_num < warmup_rounds:
+            # No compression during warmup — send full update so global model can learn
+            original_size = sum(p.numel() * 32 for p in model_update.values())
+            comm_cost = self.cost_model.comm_model.compute_cost(original_size * 8)
+            self.stats['comm_cost'] += comm_cost['energy']
+            self.stats['total_cost'] = self.stats['comm_cost'] + self.stats['comp_cost']
+            return model_update, {
+                'original_size_bits': original_size * 32,
+                'compressed_size_bits': original_size * 32,
+                'compression_ratio': 1.0,
+                'comm_cost': comm_cost
+            }
+
         # Adaptive compression ratio
         if self.config.get('compression', {}).get('adaptive', {}).get('enabled', False):
             compression_ratio = self._get_adaptive_compression_ratio(round_num, total_rounds)
-            # Adjust sparsity based on compression ratio
             effective_sparsity = self.sparsity_ratio * compression_ratio
         else:
             effective_sparsity = self.sparsity_ratio
-        
+
         # Compress update
-        compressed_update = self.compressor.compress_state_dict(model_update)
-        
-        # Apply sparsification
-        if effective_sparsity < 1.0:
-            sparsifier = TopKSparsifier(k_ratio=effective_sparsity)
-            for name in compressed_update:
-                sparse_grad, _ = sparsifier.sparsify(compressed_update[name])
-                compressed_update[name] = sparse_grad
-        
+        if self.compression_method == 'stc':
+            compressed_update = {}
+            for name, tensor in model_update.items():
+                sparse_tensor, _ = self.compressor.compress(tensor)
+                compressed_update[name] = sparse_tensor
+        else:
+            compressed_update = self.compressor.compress_state_dict(model_update)
+            # Apply sparsification
+            if effective_sparsity < 1.0:
+                sparsifier = TopKSparsifier(k_ratio=effective_sparsity)
+                for name in compressed_update:
+                    sparse_grad, _ = sparsifier.sparsify(compressed_update[name])
+                    compressed_update[name] = sparse_grad
+
         # Compute compression statistics
-        original_size = sum(p.numel() * 32 for p in model_update.values())  # Assume FP32
+        original_size = sum(p.numel() * 32 for p in model_update.values())
         compressed_size = sum(p.numel() * self.weight_bits for p in compressed_update.values())
         compression_ratio_actual = compressed_size / original_size if original_size > 0 else 1.0
-        
-        # Estimate communication cost
-        comm_cost = self.cost_model.comm_model.compute_cost(compressed_size * 8)  # Convert bytes to bits
-        
+        comm_cost = self.cost_model.comm_model.compute_cost(compressed_size * 8)
         self.stats['comm_cost'] += comm_cost['energy']
         self.stats['total_cost'] = self.stats['comm_cost'] + self.stats['comp_cost']
-        
         compression_stats = {
             'original_size_bits': original_size * 32,
             'compressed_size_bits': compressed_size * 8,
             'compression_ratio': compression_ratio_actual,
             'comm_cost': comm_cost
         }
-        
         return compressed_update, compression_stats
     
     def _get_adaptive_compression_ratio(self, round_num: int, total_rounds: int) -> float:
