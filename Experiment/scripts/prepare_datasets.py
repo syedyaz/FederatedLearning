@@ -4,6 +4,11 @@ Prepare datasets for federated learning experiments.
 
 import argparse
 import os
+import sys
+
+# Add parent directory to path to allow importing 'utils'
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from utils.data_utils import load_cifar10, load_cifar100, load_femnist, load_har
 
 

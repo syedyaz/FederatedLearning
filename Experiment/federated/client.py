@@ -73,6 +73,7 @@ class FedEdgeAccelClient:
         """Setup compression parameters based on device profile."""
         # Sanity check: disable compression to verify learning works
         if self.config.get('compression', {}).get('disable_for_sanity_check', False):
+            self.compression_method = 'none'
             self.weight_bits = 32
             self.activation_bits = 16
             self.sparsity_ratio = 1.0
@@ -86,6 +87,9 @@ class FedEdgeAccelClient:
         # Create compressor
         if self.compression_method == 'stc':
             self.compressor = STCCompressor(sparsity_ratio=self.sparsity_ratio)
+        elif self.compression_method == 'none':
+            self.compressor = None
+            self.sparsifier = None
         else:
             layer_bit_widths = self._get_layer_bit_widths()
             self.compressor = LayerWiseCompressor(layer_bit_widths, self.sparsity_ratio)

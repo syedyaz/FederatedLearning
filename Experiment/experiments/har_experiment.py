@@ -1,5 +1,5 @@
 """
-CIFAR-10 Federated Learning Experiment.
+UCI HAR Federated Learning Experiment.
 """
 
 import sys
@@ -292,7 +292,7 @@ def main():
     logger.info(f"  Test samples: {len(test_dataset)}")
     
     # Create federated splits
-    num_clients = config['datasets']['cifar10']['num_clients']
+    num_clients = config['datasets']['har']['num_clients']
     
     logger.info(f"Creating federated splits for {num_clients} clients...")
     split_start = time.time()
@@ -301,14 +301,14 @@ def main():
     train_datasets_iid = create_iid_split(
         train_dataset,
         num_clients,
-        config['datasets']['cifar10']['samples_per_client_iid']
+        config['datasets']['har']['samples_per_client_iid']
     )
     
-    logger.info(f"  Creating non-IID split (alpha={config['datasets']['cifar10']['noniid_alpha']})...")
+    logger.info(f"  Creating non-IID split (alpha={config['datasets']['har']['noniid_alpha']})...")
     train_datasets_noniid = create_noniid_split(
         train_dataset,
         num_clients,
-        alpha=config['datasets']['cifar10']['noniid_alpha']
+        alpha=config['datasets']['har']['noniid_alpha']
     )
     
     split_time = time.time() - split_start
@@ -367,7 +367,7 @@ def main():
         logger.info("-"*70)
         logger.info("Method: FedAvg Baseline")
         logger.info("-"*70)
-        model_fedavg = get_resnet18_cifar(num_classes=10)
+        model_fedavg = get_har_mlp(num_classes=6)
         results_fedavg, server_fedavg = run_federated_learning(
             model_fedavg,
             train_datasets,

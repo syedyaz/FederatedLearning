@@ -49,7 +49,10 @@ compression:
       progress_metric: "loss_reduction"
   
   sparsification:
-    method: "top_k"  # Options: top_k, threshold
+    method: "top_k"  # Options: top_k, threshold, stc
+    stc:
+      enabled: true
+      threshold_ratio: 0.1
     adaptive: true
     early_rounds_sparsity: 0.2
     late_rounds_sparsity: 0.1
@@ -79,6 +82,18 @@ datasets:
     samples_per_client_iid: 2000
     samples_per_client_noniid: 2000
     noniid_alpha: 0.5
+
+  femnist:
+    num_clients: 200 # Standard LEAF-style client count
+    samples_per_client_iid: 400
+    samples_per_client_noniid: 400
+    noniid_alpha: 0.5
+    
+  har:
+    num_clients: 30 # Matching official UCI HAR subject count
+    samples_per_client_iid: 250
+    samples_per_client_noniid: 250
+    noniid_alpha: 0.4
 
 # Model configurations
 models:

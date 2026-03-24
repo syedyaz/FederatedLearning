@@ -116,9 +116,9 @@ def load_har(data_dir='./data/har', train=True):
     y_path = os.path.join(extracted_dir, prefix, f'y_{prefix}.txt')
     
     # Read using pandas (space separated)
-    X = pd.read_csv(x_path, delim_whitespace=True, header=None).values
+    X = pd.read_csv(x_path, sep='\s+', engine='python', header=None).values
     # y is 1-indexed in UCI HAR (1-6), convert to 0-indexed (0-5)
-    y = pd.read_csv(y_path, delim_whitespace=True, header=None).values.flatten() - 1
+    y = pd.read_csv(y_path, sep='\s+', engine='python', header=None).values.flatten() - 1
     
     # Standardize features
     scaler = StandardScaler()
