@@ -55,5 +55,8 @@ If you prefer running steps individually:
 You can adjust communication rounds, learning rates, and compression settings (including the **STC baseline**) in:
 `configs/training_config.yaml`
 
+> [!NOTE]
+> This codebase includes a critical fix for an `AttributeError` that previously occurred at Round 51 when compression was disabled. The system is now stable for long-duration simulations with or without compression.
+
 ---
 *For journal submission support, refer to the `Paper/` directory for the LaTeX manuscript.*

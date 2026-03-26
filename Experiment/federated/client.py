@@ -290,6 +290,10 @@ class FedEdgeAccelClient:
             for name, tensor in model_update.items():
                 sparse_tensor, _ = self.compressor.compress(tensor)
                 compressed_update[name] = sparse_tensor
+        elif self.compression_method == 'none':
+            # No compression configured
+            compressed_update = model_update
+            effective_sparsity = 1.0
         else:
             compressed_update = self.compressor.compress_state_dict(model_update)
             # Apply sparsification
