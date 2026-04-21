@@ -3,6 +3,7 @@ Federated Learning Client Implementation with Compression and Hardware-Aware Tra
 """
 
 import math
+import logging
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -71,6 +72,9 @@ class FedEdgeAccelClient:
     
     def setup_compression(self):
         """Setup compression parameters based on device profile."""
+        self.compressor = None
+        self.sparsifier = None
+
         # Sanity check: disable compression to verify learning works
         if self.config.get('compression', {}).get('disable_for_sanity_check', False):
             self.compression_method = 'none'
@@ -88,8 +92,7 @@ class FedEdgeAccelClient:
         if self.compression_method == 'stc':
             self.compressor = STCCompressor(sparsity_ratio=self.sparsity_ratio)
         elif self.compression_method == 'none':
-            self.compressor = None
-            self.sparsifier = None
+            pass
         else:
             layer_bit_widths = self._get_layer_bit_widths()
             self.compressor = LayerWiseCompressor(layer_bit_widths, self.sparsity_ratio)
@@ -284,6 +287,8 @@ class FedEdgeAccelClient:
         else:
             effective_sparsity = self.sparsity_ratio
 
+        original_size = sum(p.numel() * 32 for p in model_update.values())
+
         # Compress update
         if self.compression_method == 'stc':
             compressed_update = {}
@@ -295,6 +300,31 @@ class FedEdgeAccelClient:
             compressed_update = model_update
             effective_sparsity = 1.0
         else:
+            # Defensive fallback: if compressor was not initialized, send full update
+            # rather than failing mid-experiment.
+            if self.compressor is None:
+                logger = logging.getLogger(__name__)
+                logger.warning(
+                    "Client %s has compression_method='%s' but no compressor; "
+                    "falling back to no compression for this update.",
+                    self.client_id,
+                    self.compression_method,
+                )
+                compressed_update = model_update
+                effective_sparsity = 1.0
+                compressed_size = original_size
+                compression_ratio_actual = 1.0
+                comm_cost = self.cost_model.comm_model.compute_cost(compressed_size * 8)
+                self.stats['comm_cost'] += comm_cost['energy']
+                self.stats['total_cost'] = self.stats['comm_cost'] + self.stats['comp_cost']
+                compression_stats = {
+                    'original_size_bits': original_size * 32,
+                    'compressed_size_bits': compressed_size * 8,
+                    'compression_ratio': compression_ratio_actual,
+                    'comm_cost': comm_cost
+                }
+                return compressed_update, compression_stats
+
             compressed_update = self.compressor.compress_state_dict(model_update)
             # Apply sparsification
             if effective_sparsity < 1.0:
@@ -304,7 +334,6 @@ class FedEdgeAccelClient:
                     compressed_update[name] = sparse_grad
 
         # Compute compression statistics
-        original_size = sum(p.numel() * 32 for p in model_update.values())
         compressed_size = sum(p.numel() * self.weight_bits for p in compressed_update.values())
         compression_ratio_actual = compressed_size / original_size if original_size > 0 else 1.0
         comm_cost = self.cost_model.comm_model.compute_cost(compressed_size * 8)
